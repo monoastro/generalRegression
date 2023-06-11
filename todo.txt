@@ -1,0 +1,7 @@
+Separate the x data and the y data
+i.e. place them in separate pointers
+
+Or,
+put m_theta into the same blob of memory as the current x and y
+
+Whichever is better

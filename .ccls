@@ -1,0 +1,5 @@
+%h %cpp
+-std=c++21
+-Iinclude
+-Iinclude/abstract
+-Ispecifics
