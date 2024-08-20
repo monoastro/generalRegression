@@ -14,4 +14,3 @@ As discussed, the star of the show, simply define your data table and pass it to
 Usage:
 hypothesis<data_type_for_theta> model;
 model.train(table);
-

@@ -3,7 +3,7 @@
 
 int main()
 {
-	dataTable<unsigned, 11, 1, 1>  housingPrice
+	dataTable<unsigned, 27, 1, 1>  housingPrice
 	{
 		{1, 1},
 		{2, 2},
@@ -16,10 +16,25 @@ int main()
 		{9, 9},
 		{10, 10},
 		{11, 11},
+		{12, 12},
+		{13, 13},
+		{14, 14},
+		{15, 15},
+		{16, 16},
+		{17, 17},
+		{18, 18},
+		{19, 19},
+		{20, 20},
+		{21, 21},
+		{22, 22},
+		{23, 23},
+		{24, 24},
+		{25, 25},
+		{26, 26},
+		{27, 27},
 	};
-
-	hypothesis model0, model1;
-	model0.train(housingPrice);
-	model1.train(housingPrice);
+	hypothesis model;
+	model.train(housingPrice);
+	housingPrice.showData();
 	return 0;
 }

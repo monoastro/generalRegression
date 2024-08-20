@@ -75,14 +75,12 @@ void hypothesis<thetaT>::train(dataTable<T, rows, labels, outputs>& data_table, 
 	m_theta = new double[m_thetaSize];
 	m_deviation = new double [data_table.m_rows];
 
-	//display alpha and the table 
-	showTheta();
-	data_table.showData();
-	std::cout<<"\n";
-
+	//showTheta();
+	//data_table.showData();
+	//std::cout<<"\n";
 	//now then that's out of the way let's write the actual meat of the program
 
-	//I've combined error function and gradient descent 
+	//I've combined the error function and gradient descent 
 	//because separating them makes no sense computationally
 	//(other than academic purposes)
 	do
@@ -90,12 +88,17 @@ void hypothesis<thetaT>::train(dataTable<T, rows, labels, outputs>& data_table, 
 		m_previousError = m_error;
 		m_error = 0;
 
-		//deviation in a mathematical sense is the difference between the predicted and the "actual" value
-		//They are values unique to each Row i.e. constant for an iteration but is different for different 
-		//iteration due to the values of theta/weights being changed every iteration.
+		//deviation in a mathematical sense is the difference
+		//between the predicted and the "actual" value
+		//They are values unique to each Row i.e. constant 
+		//for an iteration but is different for different 
+		//iteration due to the values of theta/weights 
+		//being changed every iteration.
 		
-		//I've noticed that every iteration's calculation requires multiple use of the value of deviation of each row so,
-		//I've separated it and created a lookup table so as to not have to repeat calculation of it again
+		//I've noticed that every iteration's calculation 
+		//requires multiple use of the value of deviation of each row so,
+		//I've separated the calculation of the deaviation to a separate loop
+		//and created a lookup table so as to not have to repeat catculation of it again
 		for(unsigned i = 0; i<data_table.m_rows; i++)
 		{
 			double y_prediction = 0;
@@ -133,7 +136,8 @@ void hypothesis<thetaT>::train(dataTable<T, rows, labels, outputs>& data_table, 
 			}
 
 			m_theta[j] = m_theta[j] - m_alpha * (1.0f/data_table.m_rows) * accumulator;
-			//if(m_theta[j] < 0.000000001f) m_theta[j] = 0; 
+			//a little trick to quantize the theta instead of going to increasingly smaller values
+			if(m_theta[j] < 1e-10) m_theta[j] = 0; 
 		}
 	} while((m_previousError - m_error) > threshold || (m_error > threshold)); //just some random small number
 
@@ -161,8 +165,8 @@ void hypothesis<thetaT>::train(dataTable<T, rows, labels, outputs>& data_table, 
 	std::cout<<m_error<<'\n';
 	}*/
 
+	std::cout<<"Model has been successfully trained with the following parameters.\n";
 	showTheta();
-	data_table.showData();
 }
 
 
@@ -175,7 +179,7 @@ void hypothesis<thetaT>::showTheta()
 	//printing the thetas
 	for(unsigned j = 0; j<m_thetaSize; j++)
 	{
-		coutFormatter();
+		coutFormatter(); //hadda make this whole function because cout's format resets after one use
 		std::cout<<m_theta[j]<<'|';
 	}
 	std::cout<<'\n';
