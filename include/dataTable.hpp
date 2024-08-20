@@ -154,7 +154,7 @@ void dataTable<T, rows, labels, outputs>::allocateMem()
 }
 
 
-//console display stuff, irrelevant, just ignore
+//console cosmetic display stuff, irrelevant, just ignore
 void coutFormatter()
 {
 	std::cout.width(11);
